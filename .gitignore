@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+Untitled*.ipynb
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Data files
+*.csv
+*.parquet
+*.json
+!docker-compose.yml

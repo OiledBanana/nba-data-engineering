@@ -1,0 +1,24 @@
+
+
+services:
+  db:
+    image: postgres:16
+    container_name: nba_api
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: nba_api
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  web:
+    build: .
+    container_name: nba_api_web
+    environment: 
+      DATABASE_URL: postgresql://admin:admin@db:5432/nba_api
+    depends_on:
+      - db
+volumes:
+  pgdata:
