@@ -1,0 +1,42 @@
+id: nba_ingest
+namespace: nba
+
+triggers:
+  - id: daily
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 9 * * *"
+
+tasks:
+  - id: ingest
+    type: io.kestra.plugin.scripts.python.Script
+    containerImage: python:3.13
+    beforeCommands:
+      - pip install pandas sqlalchemy psycopg2-binary nba_api
+    script: |
+      import pandas as pd
+      from sqlalchemy import create_engine
+      from nba_api.stats.endpoints import LeagueLeaders
+      leaders_24_25 = LeagueLeaders(season='2024-25').get_data_frames()[0]
+      DATABASE_URL = 'postgresql+psycopg2://admin:admin@host.docker.internal:5432/nba_api'
+      engine = create_engine(DATABASE_URL)
+      leaders_24_25.to_sql('league_leaders', engine, if_exists='replace', index=False)
+      print(f"Loaded {len(leaders_24_25)} rows into league_leaders table")
+
+  - id: top_scorers
+    type: io.kestra.plugin.scripts.python.Script
+    containerImage: python:3.13
+    beforeCommands:
+      - pip install pandas sqlalchemy psycopg2-binary
+    script: |
+      import pandas as pd
+      from sqlalchemy import create_engine
+      engine = create_engine('postgresql+psycopg2://admin:admin@host.docker.internal:5432/nba_api')
+      df = pd.read_sql("""
+          SELECT "PLAYER", "TEAM", "GP", "PTS",
+                 ROUND("PTS"::numeric / "GP", 1) as ppg
+          FROM league_leaders
+          WHERE "GP" > 0
+          ORDER BY ppg DESC
+          LIMIT 5
+      """, engine)
+      print(df)

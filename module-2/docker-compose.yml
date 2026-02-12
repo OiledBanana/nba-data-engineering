@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:16
+    container_name: nba_api
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: nba_api
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  kestra-db:
+    image: postgres:16
+    container_name: kestra_db
+    restart: always
+    environment:
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: kestra
+      POSTGRES_DB: kestra
+    volumes:
+      - kestra-pgdata:/var/lib/postgresql/data
+
+  kestra:
+    image: kestra/kestra:latest
+    container_name: kestra
+    user: "root"
+    ports:
+      - "8080:8080"
+    command: server standalone
+    depends_on:
+      - kestra-db
+    volumes:
+      - kestra-data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      KESTRA_CONFIGURATION: |
+        datasources:
+          postgres:
+            url: jdbc:postgresql://kestra-db:5432/kestra
+            driverClassName: org.postgresql.Driver
+            username: kestra
+            password: kestra
+        kestra:
+          server:
+            basicAuth:
+              enabled: false
+          repository:
+            type: postgres
+          storage:
+            type: local
+            local:
+              basePath: /app/storage
+          queue:
+            type: postgres
+
+volumes:
+  pgdata:
+  kestra-pgdata:
+  kestra-data:
