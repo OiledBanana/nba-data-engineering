@@ -32,11 +32,20 @@ Loads NBA league leaders into BigQuery including 5 seasons of historical data fo
 1. Create a Google Cloud account at cloud.google.com/free
 2. Install Google Cloud SDK
 3. Log in and create a project:
+
 ```bash
 gcloud init
 gcloud projects create YOUR-PROJECT-ID
 gcloud config set project YOUR-PROJECT-ID
 
+
+```
+4. Link a billing account (free trial — $300 credits)
+5. Enable APIs:
+# gcloud services enable bigquery.googleapis.com storage.googleapis.com
+
+6. Set up credentials:
+# gcloud auth application-default login
 
 ```bash
 git clone https://github.com/OiledBanana/nba-data-engineering.git
