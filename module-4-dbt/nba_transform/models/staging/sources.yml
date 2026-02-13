@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: nba_stats
+    database: nba-pipeline-1770915615
+    tables:
+      - name: league_leaders_historical

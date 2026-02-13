@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_league_leaders
+    columns:
+      - name: player_name
+        tests:
+          - not_null
+      - name: games_played
+        tests:
+          - not_null
+      - name: points_per_game
+        tests:
+          - not_null
