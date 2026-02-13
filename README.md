@@ -24,16 +24,19 @@ Dockerized Python script that pulls NBA league leaders from the nba_api and load
 ### Module 2: Workflow Orchestration
 Uses Kestra to automate the data pipeline on a daily schedule. The flow ingests the latest NBA stats into Postgres and queries the top scorers by points per game.
 
-## Setup
+### Module 3: BigQuery Data Warehouse
+Loads NBA league leaders into BigQuery including 5 seasons of historical data for cross-season analysis.
 
-Create a Google Cloud account at cloud.google.com/free
-Install Google Cloud SDK
-Run gcloud init and log in
-Create a project: gcloud projects create YOUR-PROJECT-ID
-Set the project: gcloud config set project YOUR-PROJECT-ID
-Link a billing account (free trial — $300 credits)
-Enable APIs: gcloud services enable bigquery.googleapis.com storage.googleapis.com
-Set up credentials: gcloud auth application-default login
+## GCP Setup
+
+1. Create a Google Cloud account at cloud.google.com/free
+2. Install Google Cloud SDK
+3. Log in and create a project:
+```bash
+gcloud init
+gcloud projects create YOUR-PROJECT-ID
+gcloud config set project YOUR-PROJECT-ID
+
 
 ```bash
 git clone https://github.com/OiledBanana/nba-data-engineering.git
