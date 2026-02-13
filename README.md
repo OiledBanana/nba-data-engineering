@@ -42,10 +42,10 @@ gcloud config set project YOUR-PROJECT-ID
 ```
 4. Link a billing account (free trial — $300 credits)
 5. Enable APIs:
-# gcloud services enable bigquery.googleapis.com storage.googleapis.com
+```bash gcloud services enable bigquery.googleapis.com storage.googleapis.com```
 
 6. Set up credentials:
-# gcloud auth application-default login
+```bash gcloud auth application-default login```
 
 ```bash
 git clone https://github.com/OiledBanana/nba-data-engineering.git
