@@ -27,6 +27,15 @@ Uses Kestra to automate the data pipeline on a daily schedule. The flow ingests 
 ### Module 3: BigQuery Data Warehouse
 Loads NBA league leaders into BigQuery including 5 seasons of historical data for cross-season analysis.
 
+### Module 4: Analytics Engineering (dbt)
+Transforms raw NBA data using dbt with staging models, mart models (MVP candidates), and automated data quality tests.
+
+### Module 5: Batch Processing (Spark)
+Processes 15 seasons of historical NBA data (7,758 rows) using Apache Spark SQL to analyze all-time scoring leaders and team representation trends.
+
+### Module 6: Streaming (Kafka)
+Simulates real-time NBA game events using Kafka. A producer sends live play-by-play events and a consumer processes them in real-time.
+
 ## Setup
 
 ```bash
