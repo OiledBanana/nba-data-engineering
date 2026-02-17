@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 venv/
+env/
 .env
 
 # Jupyter
@@ -18,5 +19,18 @@ Untitled*.ipynb
 # Data files
 *.csv
 *.parquet
-*.json
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# Spark
+*.log
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Keep YAML configs
 !docker-compose.yml
+!docker-compose.yaml

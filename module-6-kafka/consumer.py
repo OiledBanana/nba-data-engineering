@@ -20,6 +20,4 @@ while True:
         continue
 
     event = json.loads(msg.value())
-    # Print the event - what would you print here?
-    print(print(f"{event['player']} ({event['team']}) - {event['event']} | Q{event['quarter']} {event['game_clock']}")
-)
+    print(f"{event['player']} ({event['team']}) - {event['event']} | Q{event['quarter']} {event['game_clock']}")
